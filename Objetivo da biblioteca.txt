@@ -1,0 +1,6 @@
+Conjunto de código que vai automatizar:
+
+-o acesso de arquivos de texto em markdown (páginas e blogs)
+-capturar os links q estão espalhados pelo texto
+-testar cada um dos links 
+-ver se eles ainda estão no ar, se eles abrem e se a página ainda existe 
