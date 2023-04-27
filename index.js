@@ -1,6 +1,13 @@
 import fs from 'fs';  //biblioteca nativa do node 
 import chalk from 'chalk';
 
+function extraiLinks(texto) {
+    const regex = /\[([^[\]]*?)\]\((https?:\/\/[^\s?#.].[^\s]*)\)/gm;
+    const capturas = [...texto.matchAll(regex)];
+    const resultados = capturas.map(captura => ({[captura[1]]: captura[2]}))
+    return resultados;
+}
+
 function trataErro(erro){
     //jogar novo erro - lançando uma instancia do objeto erro do java script para lidar com erro e coisas inexperadas 
     console.log(erro)
@@ -12,25 +19,10 @@ async function pegaArquivo(caminhoDoArquivo){
     try {
         const encoding = 'utf-8';
         const texto = await fs.promises.readFile(caminhoDoArquivo, encoding)
-        console.log(chalk.green(texto))
+        console.log(extraiLinks(texto));
     } catch(erro) {
         trataErro(erro)
     }
 }
 
 pegaArquivo('./arquivos/texto.md');
-pegaArquivo('./arquivos/');
-
-
-
-//função assíncrona para ler o arquivo usando o fs próprio do Node que faz isso
-//promisses com then()
-/*
-function pegaArquivo(caminhoDoArquivo){
-    const encoding = 'utf-8';
-    fs.promises
-        .readFile(caminhoDoArquivo, encoding)
-        .then((texto) => console.log(chalk.green(texto)))
-        .catch(trataErro)
-}
-*/
